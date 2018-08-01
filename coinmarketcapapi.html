@@ -1,0 +1,149 @@
+<html>
+
+  <head>
+    <title>Price Website</title>
+    <meta charset="utf-8">
+
+  </head>
+
+  <body>
+    <h1>Coinmarketcap Price (24hr Change)</h1>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<table >
+  <tr>
+    <th>OVERNIGHT</th>
+  </tr>
+  <tr align="right">
+    <td align="left">Top Five:</td>
+    <td id="my_cellBTC"></td>
+    <td id="my_cellETH"></td>
+    <td id="my_cellXRP"></td>
+    <td id="my_cellBCH"></td>
+    <td id="my_cellEOS"></td>
+  </tr>
+  <tr align="right">
+    <td align="left">Platform:</td>
+    <td id="my_cellADA"></td>
+    <td id="my_cellXLM"></td>
+    <td id="my_cellNEO"></td>
+    <!-- <td id="my_cellIOTA"></td> -->
+  </tr>
+  <tr align="right">
+    <td align="left">Privacy:</td>
+    <td id="my_cellXMR"></td>
+    <td id="my_cellDASH"></td>
+    <td id="my_cellZEC"></td>
+  </tr>
+<tr> </tr>
+<table>
+  <tr>
+    <th>昨晚回顧</th>
+  </tr>
+  <tr align="right">
+    <td align="left">頭五位:</td>
+    <td id="my_cellcBTC"></td>
+    <td id="my_cellcETH"></td>
+    <td id="my_cellcXRP"></td>
+    <td id="my_cellcBCH"></td>
+    <td id="my_cellcEOS"></td>
+  </tr>
+  <tr align="right">
+    <td align="left">平台:</td>
+    <td id="my_cellcADA"></td>
+    <td id="my_cellcXLM"></td>
+    <td id="my_cellcNEO"></td>
+    <!-- <td id="my_cellcIOTA"></td> -->
+  </tr>
+  <tr align="right">
+    <td align="left">匿名幣:</td>
+    <td id="my_cellcXMR"></td>
+    <td id="my_cellcDASH"></td>
+    <td id="my_cellcZEC"></td>
+  </tr>
+  </table>
+</table>
+
+
+
+<script>
+$.get("https://api.coinmarketcap.com/v1/ticker/", function(data, status) {
+for (var i = 0; i < data.length - 1; i++) {
+var crypto = ["bitcoin", "ethereum", "ripple", "bitcoin-cash", "eos", "cardano", "stellar", "neo", "stellar", "monero", "dash", "zcash"] ;
+for (var j =0; j < 12; j++)
+if (data[i].id == crypto[j]) {
+var num = Number(data[i].percent_change_24h);
+ num = num.toFixed();
+ if(num == -0){
+     num = Math.abs(num);
+ }
+ var sym = data[i].symbol;
+ if(num>0){
+  $("#my_cell"+sym).html(sym + "&nbsp" +"(+"+ num + "%),");
+ }
+ else if(num==0){
+   $("#my_cell"+sym).html(sym + "&nbsp" +"(&nbsp"+ num + "%),");
+  }
+ else{
+ $("#my_cell"+sym).html(sym + "&nbsp" +"("+ num + "%),");
+ }
+
+ if(j==4 || j==7|| j==11){
+   if(num>0){
+    $("#my_cell"+sym).html(sym + "&nbsp" +"(+"+ num + "%)&nbsp;");
+   }
+   else if(num==0){
+     $("#my_cell"+sym).html(sym + "&nbsp" +"(&nbsp"+ num + "%)&nbsp");
+    }
+   else{
+   $("#my_cell"+sym).html(sym + "&nbsp" +"("+ num + "%)&nbsp;");
+   }
+ }
+ }
+ }
+});
+</script>
+
+<script>
+$.get("https://api.coinmarketcap.com/v1/ticker/", function(data, status) {
+for (var i = 0; i < data.length - 1; i++) {
+var crypto = ["bitcoin", "ethereum", "ripple", "bitcoin-cash", "eos", "cardano", "stellar", "neo", "stellar", "monero", "dash", "zcash"] ;
+for (var j =0; j < 12; j++)
+if (data[i].id == crypto[j]) {
+var num = Number(data[i].percent_change_24h);
+ num = num.toFixed();
+ if(num == -0){
+     num = Math.abs(num);
+ }
+ var sym = data[i].symbol;
+ if(num>0){
+  $("#my_cellc"+sym).html(sym + "&nbsp" +"(+"+ num + "%),");
+ }
+ else if(num==0){
+   $("#my_cellc"+sym).html(sym + "&nbsp" +"(&nbsp"+ num + "%),");
+  }
+ else{
+ $("#my_cellc"+sym).html(sym + "&nbsp" +"("+ num + "%),");
+ }
+
+ if(j==4 || j==7|| j==11){
+   if(num>0){
+    $("#my_cellc"+sym).html(sym + "&nbsp" +"(+"+ num + "%)&nbsp;");
+   }
+   else if(num==0){
+     $("#my_cellc"+sym).html(sym + "&nbsp" +"(&nbsp"+ num + "%)&nbsp");
+    }
+   else{
+   $("#my_cellc"+sym).html(sym + "&nbsp" +"("+ num + "%)&nbsp;");
+   }
+ }
+ }
+ }
+});
+</script>
+
+  </body>
+
+</html>

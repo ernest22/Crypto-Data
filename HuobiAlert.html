@@ -1,0 +1,114 @@
+<html>
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+</head>
+
+
+<body>
+
+  <a rel="nofollow" href="https://exmo.com/?ref=1474119"
+   target="_blank"
+   style="display:block!important">
+  <img src="https://exmo.com/static/img/affiliate/affiliate4.png"
+   alt="EXMO affiliate program"
+   title="EXMO bitcon banner"
+   border="0"
+   style="display:block!important"/>
+  </a>
+
+<h2> Huobi USDT Alert </h2>
+<h3> Sell </h3>
+<h4> Alert when price equal or higher than : </h4>
+<input id="Input" type="number" />
+<button id="CheckIn">Set Alert</button>
+
+<h4 id="cprice"> </h4>
+
+<h3> Buy </h3>
+<h4> Alert when price equal or lower than : </h4>
+<input id="InputB" type="number" />
+<button id="CheckInB">Set Alert</button>
+
+<h4 id="cpriceB"> </h4>
+
+
+
+
+  <script>
+
+  $.get("https://otc-api.huobi.pro/v1/data/trade/list/public?country=0&currency=1&payMethod=0&currPage=1&coinId=2&tradeType=0&merchant=1&online=1/", function (data, status) {
+
+  var userin = 0;
+
+   $("#cprice").html("Current Sell Price : " + data.data[0].price + " (CNY/USDT)");
+
+   $( "#CheckIn" ).click(function() {
+     userin = $("#Input").val();
+
+     setInterval(function(){
+
+       $.get("https://otc-api.huobi.pro/v1/data/trade/list/public?country=0&currency=1&payMethod=0&currPage=1&coinId=2&tradeType=0&merchant=1&online=1/", function (data, status) {
+
+       console.log(data.data[0].price);
+       console.log(data.data[0].id);
+
+       if (data.data[0].price >= userin){
+         alert("Current Sell Price = " + data.data[0].price);
+       }
+
+         $("#cprice").html("Current Sell Price : " + data.data[0].price + " (CNY/USDT)");
+       });
+
+     },10*1000);
+
+
+
+     });
+
+
+  });
+
+  $.get("https://otc-api.huobi.pro/v1/data/trade/list/public?country=0&currency=1&payMethod=0&currPage=1&coinId=2&tradeType=1&merchant=1&online=1/", function (data, status) {
+
+  var userin = 0;
+
+   $("#cpriceB").html("Current Buy Price : " + data.data[0].price + " (CNY/USDT)");
+
+   $( "#CheckInB" ).click(function() {
+     userin = $("#InputB").val();
+
+     setInterval(function(){
+
+       $.get("https://otc-api.huobi.pro/v1/data/trade/list/public?country=0&currency=1&payMethod=0&currPage=1&coinId=2&tradeType=1&merchant=1&online=1/", function (data, status) {
+
+       console.log(data.data[0].price);
+       console.log(data.data[0].id);
+
+       if (data.data[0].price <= userin){
+         alert("Current Buy Price = " + data.data[0].price);
+       }
+
+         $("#cpriceB").html("Current Buy Price : " + data.data[0].price + " (CNY/USDT)");
+       });
+
+     },10*1000);
+
+
+
+     });
+
+
+  });
+
+
+  </script>
+
+</body>
+
+
+
+</html>
